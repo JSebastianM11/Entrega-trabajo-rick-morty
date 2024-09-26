@@ -1,0 +1,42 @@
+<!-- personaje.component.html -->
+
+<div class="container">
+  <!-- Mostrar lista de personajes si no hay personaje seleccionado -->
+  <div *ngIf="!selectedCharacter" class="welcome-section">
+    <div class="character-grid">
+      <!-- Iterar sobre los personajes agrupados -->
+      <div *ngFor="let group of groupedCharacters" class="character-group">
+        <div *ngFor="let character of group" class="character-card" (click)="onCharacterClick(character.id)">
+          <img [src]="character.image" alt="{{ character.name }}" class="character-image">
+          <div class="character-info">
+            <h2>{{ character.name }}</h2>
+            <button class="select-button">Seleccionar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mostrar el detalle del personaje seleccionado -->
+  <div *ngIf="selectedCharacter" class="selected-character-section">
+    <div class="selected-character-card">
+      <img [src]="selectedCharacter.image" alt="{{ selectedCharacter.name }}" class="selected-character-image">
+      <div class="selected-character-info">
+        <h2>{{ selectedCharacter.name }}</h2>
+        <p><strong>Status:</strong> {{ selectedCharacter.status }}</p>
+        <p><strong>Species:</strong> {{ selectedCharacter.species }}</p>
+        <p><strong>Origin:</strong> {{ selectedCharacter.origin.name }}</p>
+      </div>
+    </div>
+
+    <h3>Episodios en los que aparece:</h3>
+    <ul class="episode-list">
+      <li *ngFor="let episode of selectedEpisodes" class="episode-item">
+        {{ episode.name }} (Temporada {{ episode.season }}, Episodio {{ episode.number }})
+      </li>
+    </ul>
+
+    <!-- Botón para regresar a la lista de personajes -->
+    <button class="select-button back-button" (click)="goBack()"> Volver a la lista </button>
+  </div>
+</div>
